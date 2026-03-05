@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Mix Musical - ET</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-centro">
+            <img src="logo.png" alt="Logo" class="logo">
+            <div class="titulo-con-logo">
+                <h1>🎧 Sistema de Mix Musical</h1>
+                <div class="controles-header">
+                    <input type="text" id="buscador" placeholder="Buscar canción...">
+                    <select id="filtroCategoria" onchange="filtrarCategorias()">
+                        <option value="todos">Mostrar Todos</option>
+                        <option value="Niños">Solo Niños</option>
+                        <option value="Jóvenes">Solo Jóvenes</option>
+                        <option value="Adultos">Solo Adultos</option>
+                    </select>
+                </div>
+                <p id="contadorTotal">Total canciones: 0</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="mix">
+            <h2>Niños</h2>
+            <div class="playlist" id="ninos-moderna">
+                <h3>Moderna (<span class="count">0</span>)</h3>
+                <div class="input-group">
+                    <input id="input-ninos-moderna" placeholder="Agregar canción">
+                    <button onclick="agregar('ninos','moderna')">Agregar</button>
+                </div>
+                <ul></ul>
+            </div>
+            <div class="playlist" id="ninos-folclor">
+                <h3>Folclórica (<span class="count">0</span>)</h3>
+                <div class="input-group">
+                    <input id="input-ninos-folclor" placeholder="Agregar canción">
+                    <button onclick="agregar('ninos','folclor')">Agregar</button>
+                </div>
+                <ul></ul>
+            </div>
+        </div>
+
+        <div class="mix">
+            <h2>Jóvenes</h2>
+            <div class="playlist" id="jovenes-moderna">
+                <h3>Moderna (<span class="count">0</span>)</h3>
+                <div class="input-group">
+                    <input id="input-jovenes-moderna" placeholder="Agregar canción">
+                    <button onclick="agregar('jovenes','moderna')">Agregar</button>
+                </div>
+                <ul></ul>
+            </div>
+            <div class="playlist" id="jovenes-folclor">
+                <h3>Folclórica (<span class="count">0</span>)</h3>
+                <div class="input-group">
+                    <input id="input-jovenes-folclor" placeholder="Agregar canción">
+                    <button onclick="agregar('jovenes','folclor')">Agregar</button>
+                </div>
+                <ul></ul>
+            </div>
+        </div>
+
+        <div class="mix">
+            <h2>Adultos</h2>
+            <div class="playlist" id="adultos-moderna">
+                <h3>Moderna (<span class="count">0</span>)</h3>
+                <div class="input-group">
+                    <input id="input-adultos-moderna" placeholder="Agregar canción">
+                    <button onclick="agregar('adultos','moderna')">Agregar</button>
+                </div>
+                <ul></ul>
+            </div>
+            <div class="playlist" id="adultos-folclor">
+                <h3>Folclórica (<span class="count">0</span>)</h3>
+                <div class="input-group">
+                    <input id="input-adultos-folclor" placeholder="Agregar canción">
+                    <button onclick="agregar('adultos','folclor')">Agregar</button>
+                </div>
+                <ul></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
