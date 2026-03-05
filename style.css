@@ -8,7 +8,6 @@ body {
 header {
     background: #181818;
     padding: 25px 20px;
-    border-bottom: 2px solid #1db954;
 }
 
 .header-centro {
@@ -24,7 +23,7 @@ header {
 
 .titulo-con-logo { display: flex; flex-direction: column; align-items: flex-start; }
 
-h1 { margin: 0 0 10px 0; font-size: 1.6rem; color: #1db954; }
+h1 { margin: 0 0 10px 0; font-size: 1.6rem; color: #ffffff; }
 
 .controles-header { display: flex; gap: 10px; margin-bottom: 8px; }
 
@@ -46,7 +45,7 @@ h1 { margin: 0 0 10px 0; font-size: 1.6rem; color: #1db954; }
 
 .input-group { display: flex; gap: 5px; }
 
-.playlist input { flex-grow: 1; padding: 8px; border-radius: 5px; border: none; background: #333; color: white; }
+.playlist input { flex-grow: 1; padding: 8px; border-radius: 5px; border: none; background: #ffffff; color: rgb(37, 36, 36); }
 
 button { background: #1db954; border: none; padding: 8px 12px; cursor: pointer; color: #000; font-weight: bold; border-radius: 5px; transition: 0.3s; }
 

@@ -9,11 +9,11 @@ const firebaseConfig = {
   measurementId: "G-TEYX6X7KKC"
 };
 
-// Inicializar
+// Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// Escuchar cambios en la nube
+// Escuchar cambios en la nube en tiempo real
 db.ref("canciones").on("value", (snapshot) => {
     const data = snapshot.val();
     const canciones = [];
@@ -24,16 +24,34 @@ db.ref("canciones").on("value", (snapshot) => {
 });
 
 function render(canciones) {
+    // Limpiar todas las listas antes de volver a dibujar
     document.querySelectorAll("ul").forEach(u => u.innerHTML = "");
     let total = 0;
+    
+    // Objeto para llevar la cuenta individual por cada sección (Niños, Jóvenes, etc.)
+    const contadoresPorLista = {};
+
     canciones.forEach((c) => {
-        let ul = document.querySelector(`#${c.grupo}-${c.tipo} ul`);
+        const listaId = `${c.grupo}-${c.tipo}`;
+        let ul = document.querySelector(`#${listaId} ul`);
+        
         if (ul) {
+            // Inicializar el contador para esta lista específica si es la primera canción
+            if (!contadoresPorLista[listaId]) {
+                contadoresPorLista[listaId] = 1;
+            }
+
             let li = document.createElement("li");
-            li.innerHTML = `<span>${c.nombre}</span><div class="actions">
-                <button onclick="editar('${c.id}', '${c.nombre}')">✏️</button>
-                <button onclick="eliminar('${c.id}')">🗑</button></div>`;
+            // Agregamos el número dinámico usando el contador
+            li.innerHTML = `
+                <span><strong class="numero-lista">${contadoresPorLista[listaId]}.</strong> ${c.nombre}</span>
+                <div class="actions">
+                    <button onclick="editar('${c.id}', '${c.nombre}')">✏️</button>
+                    <button onclick="eliminar('${c.id}')">🗑</button>
+                </div>`;
+            
             ul.appendChild(li);
+            contadoresPorLista[listaId]++; // Aumentar el número para la siguiente canción de esta lista
             total++;
         }
     });
@@ -45,17 +63,22 @@ function agregar(grupo, tipo) {
     let input = document.getElementById(`input-${grupo}-${tipo}`);
     let nombre = input.value.trim();
     if (nombre === "") return;
+    // Guardar en Firebase
     db.ref("canciones").push({ grupo, tipo, nombre });
     input.value = "";
 }
 
 function eliminar(id) {
-    if (confirm("¿Borrar para todos?")) db.ref("canciones/" + id).remove();
+    if (confirm("¿Borrar canción para todos?")) {
+        db.ref("canciones/" + id).remove();
+    }
 }
 
 function editar(id, nombreActual) {
-    let nuevo = prompt("Editar canción:", nombreActual);
-    if (nuevo && nuevo.trim() !== "") db.ref("canciones/" + id).update({ nombre: nuevo.trim() });
+    let nuevo = prompt("Editar nombre de la canción:", nombreActual);
+    if (nuevo && nuevo.trim() !== "") {
+        db.ref("canciones/" + id).update({ nombre: nuevo.trim() });
+    }
 }
 
 function actualizarContadoresInternos() {
